@@ -1,0 +1,64 @@
+<%- include('../partials/header'); -%>
+        
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome to YelpCamp!!</h1>
+            
+            <p>View our hand-picked campgrounds from all over the world</p>
+            <p>
+                <a class= "btn btn-primary btn-lg" href="/campgrounds/new/campground">Add New Campground</a>
+            </p>
+            <p>
+                <form action="/campgrounds" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="search" placeholder="campground search..." class="form-control">
+                        <input type="submit" value="Search" class="btn btn-default">
+                    </div>
+                </form>
+            </p>
+             <div><a href="/">Go to Landing Page</a></div>
+        </div>
+    </header>
+
+        <div class ="row text-center" style="display:flex; flex-wrap: wrap;">
+            <% campgrounds.forEach(function(campground){%>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <img src="<%= campground.image%>">
+                    <div class="caption">
+                        <h4> <%= campground.name%></h4>
+                    </div>
+                    <p>
+                        <a href="/campgrounds/<%= campground._id%>" class="btn btn-sm btn-primary">More info</a>
+                    </p>
+                </div> 
+
+            </div>    
+                   
+                
+            <% }); %>
+        </div>
+        
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <% if(results && results.previous) { %>    
+                    <li class="page-item"><a class="page-link" href="/campgrounds?page=<%= results.previous.page %>"><span aria-hidden="true">&larr;</span>Previous</a></li>
+                <% } %>
+            
+                <% if(results && results.maxPageNum) { %>
+                     <% for(var i=1; i<=results.maxPageNum; i++) { %>
+                        <% if(pageNum===i) {%>
+                            <li class="page-item active"><a class="page-link" href="/campgrounds?page=<%= i %>"><%= i %> <span class="sr-only">(current)</span></a></li>
+                        <% }else{ %>
+                            <li class="page-item"><a class="page-link" href="/campgrounds?page=<%= i %>"><%= i %> </a></li>
+                        <% } %>
+                     <% } %> 
+                <% } %>
+                
+                <% if(results && results.next) { %>
+                    <li class="page-item"><a class="page-link" href="/campgrounds?page=<%= results.next.page %>">Next<span aria-hidden="true">&rarr;</span></a></li>
+                <% } %>
+            </ul>
+        </nav>
+        
+<%- include('../partials/footer'); -%>
