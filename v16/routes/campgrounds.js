@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Campground = require("../models/campground");
+var Book = require("../models/booking")
 var Comment  = require("../models/comment");
 var middleware = require("../middlewares");
 var moment = require("moment");
@@ -26,15 +27,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-
-// async function good (model) {
-//     var number = await model.find().limit(5).skip(0).exec();
-//     console.log(!number);
-//     console.log(typeof number);
-//     console.log(number.length);
-// }
-
-// good(Campground);
 // INDEX ROUTE
 router.get("/", middleware.paginatedResults(Campground), function(req, res){
     if(req.query.search){
@@ -56,7 +48,10 @@ router.get("/", middleware.paginatedResults(Campground), function(req, res){
 // SHOW ROUTE
 router.get("/:id", function(req,res){
     Campground.find({}, function(err,allCampgrounds) {
-        if(err) console.log(err)
+        if(err || !allCampgrounds){
+            req.flash("error", "Campgrounds not found");
+            return res.redirect("/campgrounds");
+        }
     Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
         if(err || !foundCampground){
            req.flash("error", "Campground not found");
@@ -89,6 +84,8 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req,res
     id: req.user._id,
     username: req.user.username
   }
+  // add created to campground
+  campground.created = moment().format("LLL");  
   Campground.create(campground, function(err, campground) {
     if (err) {
       req.flash('error', err.message);
@@ -102,7 +99,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req,res
 // EDIT CAMPGROUND
 router.get("/:id/edit", middleware.checkCampgroundOwnership, function(req,res){
     Campground.findById(req.params.id, function(err,campground){
-        if(err){
+        if(err || !campground){
          res.redirect("/campgrounds");
         }else{
           res.render("campgrounds/edit", {campground:campground});
@@ -152,11 +149,80 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req,res){
                 });
             } catch (err) {
                 req.flash("error", err.message);
-                return res.redirect("back");
+                return res.redirect("/campgrounds");
             }
         });
     });
 
+    router.get("/:id/booking", function(req,res){
+        Campground.findById(req.params.id, function(err, foundCampground) {
+            if(err || !foundCampground) {
+                req.flash("error", "Something went wrong");
+                return res.redirect("/campgrounds/"+req.params.id);
+            }
+            res.render("campgrounds/booking", {campground: foundCampground, selectedDate: foundCampground.booking}); 
+        });
+    });
+
+    router.post("/:id/booking", function(req,res) {
+        Campground.findById(req.params.id, function(err, foundCampground) {
+            if(err || !foundCampground) {
+                req.flash("error", "Something went wrong");
+                return res.redirect("/campgrounds/"+req.params.id);
+            }
+            for (var d = new Date(req.body.from);
+						d <= new Date(req.body.to);
+						d.setDate(d.getDate() + 1)) {
+							foundCampground.booking.push(moment(d).format("L"));
+                    }
+                // saving the campground
+                foundCampground.save(function(err, savedCampground) {
+                    if(err || !savedCampground) {
+                        req.flash("error", "Something went wrong while saving dates into campground");
+                        return res.redirect("/campgrounds/"+req.params.id);
+                    }
+                    const booking = new Book({
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        familyMembers: req.body.familyMembers,
+                        email: req.body.email,
+                        from: req.body.from,
+                        to: req.body.to,
+                        campName: foundCampground.name
+                    });
+                    booking.save(function(err, savedBooking) {
+                        if(err || !savedBooking) {
+                            req.flash("error", "Something went wrong");
+                            return res.redirect("/campgrounds/"+req.params.id);
+                        }
+                        res.render("campgrounds/transaction", {bookingInfo: savedBooking});
+                    })
+                })
+        });
+    })
+
+    // router.get("/camp/eleko", function(req,res) {
+    //     Campground.deleteOne({name:"Eleko"}, function(err, foundCampground){
+    //         if(err){
+    //            req.flash("error", "Campground could not be deleted");
+    //            res.redirect("/campgrounds");
+    //         }else{
+    //             res.send("Campground successfully deleted");     
+    //         }
+    //     });
+    // });
+
+
+    router.get("/allcamps/here", function(req,res) {
+        Book.find({}, function(err, bookings){
+            if(err || !bookings){
+               req.flash("error", "Campground not found");
+               res.redirect("/campgrounds");
+            }else{
+                res.send(bookings);     
+            }
+        });
+    });
 
 
 module.exports = router;

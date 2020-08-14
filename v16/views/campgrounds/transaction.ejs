@@ -1,0 +1,44 @@
+<%- include('../partials/header'); -%>
+
+    <div class="row">
+        <h1 style="text-align:center">Print this page and come with it on your appointment. Thank you</h1>
+        <h1 style="text-align:center">Your Booking Details</h1>
+        <div class="col-xs-12" style="margin: 20px auto;">
+            <form action="" method="">
+                
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input class="form-control" type="text" name="" value="<%= bookingInfo.firstName%>" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input class="form-control" type="text" name="" value="<%= bookingInfo.lasttName%>" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input class="form-control" type="text" name="" value="<%= bookingInfo.email%>" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Number of family members</label>
+                    <input class="form-control" type="number" name="" value="<%= bookingInfo.familyMembers%>" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Camp Name</label>
+                    <input class="form-control" type="text" name="" value="<%= bookingInfo.campName%>" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Camping Day(s)</label>
+                    <br/>
+                    <label for="from">From</label> <input type="text" name="" value="<%= bookingInfo.from%>" readonly /> <label for="to">to</label> <input type="text" name="" value="<%= bookingInfo.to%>" readonly/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+<%- include('../partials/footer'); -%>

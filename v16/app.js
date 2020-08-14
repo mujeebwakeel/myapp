@@ -18,7 +18,7 @@ var campgroundRoutes = require("./routes/campgrounds");
 var indexRoutes = require("./routes/index");
 var passwordReset = require("./routes/passwordreset");
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, 'useUnifiedTopology': true, 'useFindAndModify': false, useCreateIndex: true });
+mongoose.connect("mongodb://localhost/yelpcamp", { useNewUrlParser: true, 'useUnifiedTopology': true, 'useFindAndModify': false, useCreateIndex: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -59,6 +59,6 @@ app.get("*", function(req,res){
 });
 
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(3000, process.env.IP, function(){
     console.log("Server has started");
 });

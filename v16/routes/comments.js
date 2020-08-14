@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router({mergeParams: true});
 var Comment  = require("../models/comment");
 var Campground = require("../models/campground");
+var moment = require("moment");
 var middleware = require("../middlewares");
 
 //CREATE COMMENTS ROUTE
@@ -22,7 +23,10 @@ router.post("/", middleware.isLoggedIn, function(req,res){
         if(err){
             res.render("comments/new");
         }else{
-            Comment.create(req.body.comment, function(err,comment){
+            var comment = req.body.comment;
+            // add created to comment
+            comment.created = moment().format("LLL");
+            Comment.create(comment, function(err,comment){
                 if(err){
                     console.log(err); 
                 }else{
