@@ -1,9 +1,10 @@
 <%- include('../partials/header'); -%>
 
+<div style="max-width:60rem; width:90%; margin:10px auto;">
     <div class="row">
-        <h1 style="text-align:center">Print this page and come with it on your appointment. Thank you</h1>
-        <h1 style="text-align:center">Your Booking Details</h1>
-        <div class="col-xs-12" style="margin: 20px auto;">
+        <div class="col-xs-12">
+            <h1 style="text-align:center">Print this page and come with it on your appointment. Thank you</h1>
+            <h1 style="text-align:center">Your Booking Details</h1>
             <form action="" method="">
                 
                 <div class="form-group">
@@ -13,7 +14,7 @@
                 
                 <div class="form-group">
                     <label>Last Name</label>
-                    <input class="form-control" type="text" name="" value="<%= bookingInfo.lasttName%>" readonly>
+                    <input class="form-control" type="text" name="" value="<%= bookingInfo.lastName%>" readonly>
                 </div>
                 
                 <div class="form-group">
@@ -37,8 +38,19 @@
                     <label for="from">From</label> <input type="text" name="" value="<%= bookingInfo.from%>" readonly /> <label for="to">to</label> <input type="text" name="" value="<%= bookingInfo.to%>" readonly/>
                 </div>
 
+                <div class="form-group">
+                    <label>Amount Paid</label>
+                    <input class="form-control" type="text" name="" value="<%= bookingInfo.amountPaid%>" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Booking Date</label>
+                    <input class="form-control" type="text" name="" value="<%= bookingInfo.bookingDate%>" readonly>
+                </div>
+
             </form>
         </div>
     </div>
+</div>
 
 <%- include('../partials/footer'); -%>

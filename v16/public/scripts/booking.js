@@ -1,7 +1,9 @@
 
 $( document ).ready(function() {
 	$( function() {
+		var endDate, startDate, dateLength, totalAmount;
 		var dateSelected = $("#info").html();
+		var price = Number($("#price").html());
 		var dateArray = dateSelected.split(',');
 		var dateToday = new Date();
 		var dates = $("#from, #to").datepicker({
@@ -20,16 +22,66 @@ $( document ).ready(function() {
 			dates.not(this).datepicker("option", option, date);
 			if(this.id == "from") {
 				startDate = $(this).datepicker("getDate");
-			} else {
-					endDate = $(this).datepicker("getDate");
+				if(endDate) {
+					var selectedPeriod = []
 					for (var d = new Date(startDate);
 						d <= new Date(endDate);
 						d.setDate(d.getDate() + 1)) {
-							notAvailable.push($.datepicker.formatDate('mm-dd-yy', d));
+							if(dateArray.indexOf($.datepicker.formatDate('mm/dd/yy', d)) == -1) {
+								selectedPeriod.push($.datepicker.formatDate('mm/dd/yy', d));
+							}
 					}
-					console.log(notAvailable)
+					dateLength = selectedPeriod.length;
+					totalAmount = price*dateLength;
+					$("#payable-amount").val(totalAmount);
+					$("#payable-amount").attr("readonly", true);
+				}
+			} else {
+					endDate = $(this).datepicker("getDate");
+					var selectedPeriod = []
+					for (var d = new Date(startDate);
+						d <= new Date(endDate);
+						d.setDate(d.getDate() + 1)) {
+							if(dateArray.indexOf($.datepicker.formatDate('mm/dd/yy', d)) == -1) {
+								selectedPeriod.push($.datepicker.formatDate('mm/dd/yy', d));
+							}
+					}
+					dateLength = selectedPeriod.length;
+					totalAmount = price*dateLength;
+					$("#payable-amount").val(totalAmount);
+					$("#payable-amount").attr("readonly", true);
 			}
 		}
-	  });
 	});
-});
+	paypal.Buttons({
+		createOrder: function(data, actions) {
+		// This function sets up the details of the transaction, including the amount and line item details.
+		return actions.order.create({
+			purchase_units: [{
+			amount: {
+				value: totalAmount
+			}
+			}]
+		});
+		},
+		onApprove: function(data, actions) {
+		// This function captures the funds from the transaction.
+		return actions.order.capture().then(function(details) {
+			// This function shows a transaction success message to your buyer.
+			alert("Transaction successful");
+			$("#first-name").attr("readonly", true);
+			$("#last-name").attr("readonly", true);
+			$("#email").attr("readonly", true);
+			$("#family-member").attr("readonly", true);
+			$("#duration").css("display", "none");
+			$("#button").attr("disabled", false);
+			$("#instruct").text("Kindly click the submit button to complete your booking");
+		});
+		},
+		onError: err => {
+			alert(err + ". Kindly retry later");
+		}
+	}).render('#paypal-button-container');
+	//This function displays Smart Payment Buttons on your web page.
+		});
+	});

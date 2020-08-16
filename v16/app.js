@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var moment = require("moment");
+var Campground = require("./models/campground");
 var flash = require("connect-flash");
 var passport = require("passport");
 var localStrategy = require("passport-local");
@@ -58,7 +59,27 @@ app.get("*", function(req,res){
     res.send("<h1>The entered URL does not exit on this server.</h1> <h2>Kindly check the URL characters for the correct link.</h2> <h2>Thank you.</h2>");
 });
 
+setInterval(checkDates, 2000000000);
 
+
+function checkDates() {
+    Campground.find({}, function(err, foundCampgrounds) { 
+        foundCampgrounds.forEach(campground => {
+            var dates = campground.booking.filter(date => 
+                new Date(date) >= new Date("08/22/2020")
+            );
+            Campground.findOneAndUpdate({name:campground.name}, {booking:dates}, function(err, found) {
+                if(err || !found) {
+                    console.log("Nothing updated");
+                } else {
+                    console.log(found);
+                }
+            })
+        });
+    });
+}
+
+ 
 app.listen(3000, process.env.IP, function(){
     console.log("Server has started");
 });

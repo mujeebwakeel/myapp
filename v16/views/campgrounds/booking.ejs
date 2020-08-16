@@ -2,6 +2,7 @@
 <html>
     <head>
             <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>YelpCamp</title>
             <script src="https://kit.fontawesome.com/c7394a92be.js" crossorigin="anonymous"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">        
@@ -77,45 +78,57 @@
     </div>    
 <div class="container">
 
+<div style="max-width:60rem; width:90%; margin:10px auto;">
     <div class="row">
-       <h1 style="text-align:center">Enter Your Details</h1>
-       <p style="display:none;" id="info"><%= selectedDate%></p>
-        <div class="col-xs-12" style="margin: 20px auto;">
+        <div class="col-xs-12">
+            <p style="display:none;" id="info"><%= selectedDate%></p>
+            <p style="display:none;" id="price"><%= campground.price%></p>
+            <h1 style="text-align:center">Enter Your Details</h1>
             <form action="/campgrounds/<%=campground._id %>/booking" method="POST">
                 
                 <div class="form-group">
                     <label>First Name</label>
-                    <input class="form-control" type="text" name="firstName" placeholder="firstname" required>
+                    <input class="form-control" id="first-name" type="text" name="firstName" placeholder="firstname" required>
                 </div>
                 
                 <div class="form-group">
                     <label>Last Name</label>
-                    <input class="form-control" type="text" name="lastName" placeholder="lastname" required>
+                    <input class="form-control" id="last-name" type="text" name="lastName" placeholder="lastname" required>
                 </div>
                 
                 <div class="form-group">
                     <label>Email</label>
-                    <input class="form-control" type="text" name="email" placeholder="email" required>
+                    <input class="form-control" id="email" type="text" name="email" placeholder="email" required>
                 </div>
 
                 <div class="form-group">
                     <label>Number of family members</label>
-                    <input class="form-control" type="number" name="familyMembers" placeholder="number of family members" required>
+                    <input class="form-control" id="family-member" type="number" name="familyMembers" placeholder="number of family members" required>
                 </div>
                 
-                <div class="form-group">
+                <div id="duration" class="form-group">
                     <label>Camping Day(s)</label>
                     <br/>
-                    <label for="from">From</label> <input type="text" id="from" name="from" required /> <label for="to">to</label> <input type="text" id="to" name="to"/>
+                    <label for="from">From</label> <input type="text" id="from" name="from" required readonly/>  
+                    <label for="to">to</label> <input type="text" id="to" name="to" readonly/>
+                </div>
+
+                <div class="form-group">
+                    <label>Payable Amount</label>
+                    <input class="form-control" type="text" id="payable-amount" name="amountPaid">
                 </div>
                 
                 <div class="form-group">
-                    <button class= "btn btn-lg btn-primary btn-block">Submit!</button>
+                    <button id="button" class= "btn btn-lg btn-primary btn-block" disabled>Submit!</button>
                 </div>
             </form>
+            <div id="instruct">Payment Validates Booking: kindly make payment using the below button and return to submit. Thank you.</div>
+            <div id="payment-button">
+                <div id="paypal-button-container"></div>
+            </div>
         </div>
     </div>
-
+</div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
   <div class="container">
@@ -130,6 +143,9 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script
+    src="https://www.paypal.com/sdk/js?client-id=AYL7ygG9wpr9WXKVOUdywxqwpkXm6O8bB848xrl2vUFclZ46UAnS_BUhjJCftf1FYF9RM7pkExcw0GOx"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+</script>
 <script src="/scripts/booking.js"></script>
 
 </body>

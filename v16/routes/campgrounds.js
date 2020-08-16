@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 var Campground = require("../models/campground");
 var Book = require("../models/booking")
-var Comment  = require("../models/comment");
 var middleware = require("../middlewares");
 var moment = require("moment");
 var multer = require('multer');
@@ -173,7 +172,9 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req,res){
             for (var d = new Date(req.body.from);
 						d <= new Date(req.body.to);
 						d.setDate(d.getDate() + 1)) {
-							foundCampground.booking.push(moment(d).format("L"));
+                            if(foundCampground.booking.indexOf(moment(d).format("L")) == -1) {
+                                foundCampground.booking.push(moment(d).format("L"));
+                            }
                     }
                 // saving the campground
                 foundCampground.save(function(err, savedCampground) {
@@ -188,7 +189,9 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req,res){
                         email: req.body.email,
                         from: req.body.from,
                         to: req.body.to,
-                        campName: foundCampground.name
+                        campName: foundCampground.name,
+                        bookingDate: moment().format("LLL"),
+                        amountPaid: req.body.amountPaid
                     });
                     booking.save(function(err, savedBooking) {
                         if(err || !savedBooking) {
@@ -201,16 +204,16 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req,res){
         });
     })
 
-    // router.get("/camp/eleko", function(req,res) {
-    //     Campground.deleteOne({name:"Eleko"}, function(err, foundCampground){
-    //         if(err){
-    //            req.flash("error", "Campground could not be deleted");
-    //            res.redirect("/campgrounds");
-    //         }else{
-    //             res.send("Campground successfully deleted");     
-    //         }
-    //     });
-    // });
+    router.get("/camp/elegushi", function(req,res) {
+        Campground.findOne({name:"Island"}, function(err, foundCampground){
+            if(err){
+               req.flash("error", "Campground could not be found");
+               res.redirect("/campgrounds");
+            }else{
+                res.send(foundCampground);     
+            }
+        });
+    });
 
 
     router.get("/allcamps/here", function(req,res) {

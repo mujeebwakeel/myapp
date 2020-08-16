@@ -7,7 +7,9 @@ var bookSchema = new mongoose.Schema({
     from: String,
     to: String,
     email: String,
-    campName: String
+    campName: String,
+    bookingDate: String,
+    amountPaid: String
 });
 
 module.exports = mongoose.model("Book", bookSchema);
