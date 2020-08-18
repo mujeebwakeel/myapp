@@ -64,11 +64,11 @@ router.get("/:id", function(req,res){
 
     
 // CREATE CAMPGROUND
-router.get("/new/campground", middleware.isLoggedIn, function(req,res){
+router.get("/new/campground", middleware.isAdmin, function(req,res){
     res.render("campgrounds/new");
 });
 
-router.post("/", middleware.isLoggedIn, upload.single('image'), function(req,res){
+router.post("/", middleware.isAdmin, upload.single('image'), function(req,res){
    cloudinary.v2.uploader.upload(req.file.path, function(err,result) {
        if(err){
            req.flash("err", err.message);
@@ -153,7 +153,7 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req,res){
         });
     });
 
-    router.get("/:id/booking", function(req,res){
+    router.get("/:id/booking",  middleware.isLoggedIn, function(req,res){
         Campground.findById(req.params.id, function(err, foundCampground) {
             if(err || !foundCampground) {
                 req.flash("error", "Something went wrong");
@@ -163,7 +163,7 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req,res){
         });
     });
 
-    router.post("/:id/booking", function(req,res) {
+    router.post("/:id/booking",  middleware.isLoggedIn, function(req,res) {
         Campground.findById(req.params.id, function(err, foundCampground) {
             if(err || !foundCampground) {
                 req.flash("error", "Something went wrong");
@@ -191,7 +191,8 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req,res){
                         to: req.body.to,
                         campName: foundCampground.name,
                         bookingDate: moment().format("LLL"),
-                        amountPaid: req.body.amountPaid
+                        amountPaid: req.body.amountPaid,
+                        paymentId: req.body.paymentId
                     });
                     booking.save(function(err, savedBooking) {
                         if(err || !savedBooking) {
@@ -202,6 +203,17 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req,res){
                     })
                 })
         });
+    });
+
+    router.get("/booking/records", middleware.isAdmin, function(req, res) {
+        Book.find({}, function(err, foundBookings) {
+            if(err || !foundBookings) {
+                req.flash("error", "Bookings could not be found");
+               res.redirect("/campgrounds");
+            } else {
+                res.render("campgrounds/bookingRecord", {bookings:foundBookings});
+            }
+        })
     })
 
     router.get("/camp/elegushi", function(req,res) {

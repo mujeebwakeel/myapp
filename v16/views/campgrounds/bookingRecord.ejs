@@ -78,8 +78,53 @@
         </div>
         <% } %>
     </div>    
-<div class="container">
 
-        
-        
-   
+
+<div class="booking-list">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Family Members</th>
+                <th>Camp Name</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Amount Paid</th>
+                <th>Payment Date</th>
+                <th>Payment ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% bookings.forEach(function(booking) { %>
+            <tr>
+                <td><%= booking.firstName %></td>
+                <td><%= booking.lastName %></td>
+                <td><%= booking.email %></td>
+                <td><%= booking.familyMembers %></td>
+                <td><%= booking.campName %></td>
+                <td><%= booking.from %></td>
+                <td><%= booking.to %></td>
+                <td><%= booking.amountPaid %></td>
+                <td><%= booking.bookingDate %></td>
+                <td><%= booking.paymentId %></td>
+                
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+        <p>Designed By Adeyinka</p>
+</nav>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+
+<%- include('../partials/footer'); -%>

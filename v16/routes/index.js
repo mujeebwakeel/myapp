@@ -34,7 +34,7 @@ router.post("/register", middleware.checkEmailRepetition, function(req,res){
            return res.redirect("/register");
        }
        passport.authenticate("local")(req,res,function(){
-           req.flash("success", "You are now signed in as " + req.user.username + ". Welcome to YelpCamp Website.");
+           req.flash("success", "You are now signed in as " + req.user.username + ". Welcome to WhykayCamp Website.");
            res.redirect("/campgrounds");
        });
      }); 

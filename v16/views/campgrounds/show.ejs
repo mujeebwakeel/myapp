@@ -1,7 +1,7 @@
 <%- include('../partials/header'); -%>
     <div class="row">
         <div class="col-md-3"> 
-            <p class="lead">YelpCamp</p>
+            <p class="lead">WhykayCamp</p>
              <div class="thumbnail">
                 <img class= "img-responsive" src="<%= campground.image%>">
                 <div class="caption-full">
@@ -16,11 +16,12 @@
         
         </div>
         <div class="col-md-9">
+            <p class="lead"><%= campground.name%></p>
             <div class="thumbnail">
                 <img class= "img-responsive" src="<%= campground.image%>">
                 <div class="caption-full">
-                    <h4 class="pull-right">$<%= Number(campground.price).toFixed(2)%>/day</h4>
-                     <h4><a><%= campground.name%></a> <a href="/campgrounds/<%= campground._id%>/booking">Book this campground</a></h4>
+                    <h4 class="pull-right">$<%= Number(campground.price).toFixed(2)%>/night</h4>
+                     <h4><a href="/campgrounds/<%= campground._id%>/booking">Booking</a></h4>
                     <p><%= campground.description %></p>
                     <p class="pull-right"> <em>on: <%= moment(campground.created).format("LLLL")%></em> (<%=moment(campground.created).fromNow()%>)</p>
                     <p><strong>Created by: <a href="/users/<%= campground.author.id%>"><%= campground.author.username%></a></strong></p> 

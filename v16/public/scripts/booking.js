@@ -64,19 +64,22 @@ $( document ).ready(function() {
 			}]
 		});
 		},
-		onApprove: function(data, actions) {
-		// This function captures the funds from the transaction.
-		return actions.order.capture().then(function(details) {
-			// This function shows a transaction success message to your buyer.
-			alert("Transaction successful");
+		onApprove: async function(data, actions) {
+			const order = await actions.order.capture()
 			$("#first-name").attr("readonly", true);
 			$("#last-name").attr("readonly", true);
 			$("#email").attr("readonly", true);
 			$("#family-member").attr("readonly", true);
 			$("#duration").css("display", "none");
 			$("#button").attr("disabled", false);
-			$("#instruct").text("Kindly click the submit button to complete your booking");
-		});
+			$("#submit-button").css("display", "block");
+			$("#instruct").text("Kindly click the submit button to complete your booking and generate your receipt");
+			$("#payment-button").css("display", "none");
+			$("#paymentIdDiv").css("display", "block");
+			$("#paymentId").val(order.id);
+			$("#paymentIdDiv").attr("readonly", true);
+			alert("Transaction successful. click 'OK' to submit your booking");
+
 		},
 		onError: err => {
 			alert(err + ". Kindly retry later");

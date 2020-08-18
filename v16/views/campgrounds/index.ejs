@@ -2,12 +2,17 @@
         
     <header class="jumbotron">
         <div class="container">
-            <h1>Welcome to YelpCamp!!</h1>
+            <h1>Welcome to WhykayCamp</h1>
+            <div id="intro">
+                <div>We have camp stations of different categories and you will really enjoy any of them.</div>
+                <div>Life is worth enjoying, so live it to the fullest.</div>
+            </div>
+            <% if(currentUser && currentUser.isAdmin) { %>
+                <p>
+                    <a class= "btn btn-primary btn-lg" href="/campgrounds/new/campground">Add New Campground</a>
+                </p>
+            <% } %>
             
-            <p>View our hand-picked campgrounds from all over the world</p>
-            <p>
-                <a class= "btn btn-primary btn-lg" href="/campgrounds/new/campground">Add New Campground</a>
-            </p>
             <p>
                 <form action="/campgrounds" method="GET" class="form-inline">
                     <div class="form-group">

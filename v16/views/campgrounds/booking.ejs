@@ -117,12 +117,17 @@
                     <label>Payable Amount</label>
                     <input class="form-control" type="text" id="payable-amount" name="amountPaid">
                 </div>
-                
-                <div class="form-group">
+
+                <div id="paymentIdDiv" class="form-group">
+                    <label>Payment ID</label>
+                    <input class="form-control" type="text" id="paymentId" name="paymentId"  >
+                </div>
+
+                <p id="instruct">Kindly make payment using any of the buttons below.</p>
+                <div id="submit-button" class="form-group">
                     <button id="button" class= "btn btn-lg btn-primary btn-block" disabled>Submit!</button>
                 </div>
             </form>
-            <div id="instruct">Payment Validates Booking: kindly make payment using the below button and return to submit. Thank you.</div>
             <div id="payment-button">
                 <div id="paypal-button-container"></div>
             </div>

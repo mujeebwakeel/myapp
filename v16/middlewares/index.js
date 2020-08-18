@@ -56,6 +56,14 @@ middleware.isLoggedIn = function(req,res,next){
                 res.redirect("/login");
             }
 
+middleware.isAdmin = (req, res, next) => {
+    if(req.isAuthenticated() && req.user.isAdmin) {
+        return next();
+    }
+    req.flash("message", "You don't have permission to do that"); 
+                res.redirect("/campgrounds");
+}
+
 middleware.checkEmailRepetition = function (req, res, next) {
     User.findOne({email: req.body.email}, function(err, foundUser){
         if(err || foundUser) {
