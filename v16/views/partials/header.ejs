@@ -46,7 +46,7 @@
                                     <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
                                 <% }else{ %>
                                     <% if(currentUser.isAdmin) { %>
-                                        <li><a href="/campgrounds/booking/records">Bookings</a></li>
+                                        <li class="<%= typeof page !== 'undefined' && page === 'bookings' ? 'active' : '' %>"><a href="/campgrounds/booking/records">Bookings</a></li>
                                     <% } %>
                                     <li class="<%= typeof profile !== 'undefined' && profile === 'profile' ? 'active' : '' %>"><a href="/users/<%= currentUser._id%>">My Profile</a></li>
                                     <li><a>Currently signed in as <%=currentUser.username%></a></li>

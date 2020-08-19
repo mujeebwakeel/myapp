@@ -51,7 +51,7 @@ router.post('/forgot', function(req, res, next) {
         subject: 'Node.js Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'https://8c260c3f0a4d47309e1cd1baba2b6d54.vfs.cloud9.us-east-2.amazonaws.com/reset/' + token + '\n\n' +
+          'https://camp.herokuapp.com/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       transporter.sendMail(mailOptions, function(err) {

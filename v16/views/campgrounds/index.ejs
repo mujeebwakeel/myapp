@@ -1,27 +1,29 @@
 <%- include('../partials/header'); -%>
         
     <header class="jumbotron">
-        <div class="container">
-            <h1>Welcome to WhykayCamp</h1>
-            <div id="intro">
-                <div>We have camp stations of different categories and you will really enjoy any of them.</div>
-                <div>Life is worth enjoying, so live it to the fullest.</div>
-            </div>
-            <% if(currentUser && currentUser.isAdmin) { %>
+        <div id="innerjumbo">
+            <div class="container">
+                <h1>Welcome to WhykayCamp</h1>
+                <div id="intro">
+                    <div>We have camp stations of different categories and you will really enjoy any of them.</div>
+                    <div>Life is worth enjoying, so live it to the fullest.</div>
+                </div>
+                <% if(currentUser && currentUser.isAdmin) { %>
+                    <p>
+                        <a class= "btn btn-primary btn-lg" href="/campgrounds/new/campground">Add New Campground</a>
+                    </p>
+                <% } %>
+                
                 <p>
-                    <a class= "btn btn-primary btn-lg" href="/campgrounds/new/campground">Add New Campground</a>
+                    <form action="/campgrounds" method="GET" class="form-inline">
+                        <div class="form-group">
+                            <input type="text" name="search" placeholder="campground search..." class="form-control">
+                            <input type="submit" value="Search" class="btn btn-default">
+                        </div>
+                    </form>
                 </p>
-            <% } %>
-            
-            <p>
-                <form action="/campgrounds" method="GET" class="form-inline">
-                    <div class="form-group">
-                        <input type="text" name="search" placeholder="campground search..." class="form-control">
-                        <input type="submit" value="Search" class="btn btn-default">
-                    </div>
-                </form>
-            </p>
-             <div><a href="/">Go to Landing Page</a></div>
+                <div><a href="/">Go to Landing Page</a></div>
+            </div>
         </div>
     </header>
 

@@ -60,12 +60,6 @@ body {
 	display: none;
 }
 
-#intro {
-	color: green;
-	font-size: 20px;
-	margin-bottom: 10px;
-}
-
 .navbar-default {
 	background-color: #0e0101;
 }
@@ -114,4 +108,60 @@ tbody>tr:nth-child(even) {
 	background-color: rgb(241, 211, 76);
 }
 
+@keyframes animate {
+	0%   {background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1597417380/neikasinartdfqagw5pq.jpg");}
+	25%  {background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1596394731/nlpr8mcinzoqw3pad5k2.jpg");}
+	50%  {background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1591857263/xrnpy4cgxgyb0ly2ye96.jpg");}
+	100% {background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1591856522/usm2nnntkmd1rslp9id7.jpg");}
+  }
 
+.container .jumbotron {
+	background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1590508567/sample.jpg");
+	background-size: cover;
+  	background-position: 50% 50%;
+  	background-repeat: no-repeat;
+	padding: 0;
+	animation-name: animate;
+	  animation-duration: 6s;
+	  animation-delay: 1s;
+	  animation-iteration-count: infinite;
+	  animation-direction: normal;
+	  animation-timing-function: linear;
+
+}
+
+#intro {
+	color: whitesmoke;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+@keyframes innerjumboh1 {
+	0%   {color:#ffffb3;}
+	25%  {color:#ffff00;}
+	50%  {color:#ff8000;}
+	100% {color:#ff0000;}
+  }
+
+#innerjumbo {
+	width: 100%;
+	height: 100%;
+	background-color: rgb(255, 222, 75, 0);
+	padding-right: 25px;
+	padding-left: 25px;
+	padding-top: 48px;
+	padding-bottom: 48px;
+}
+
+#innerjumbo .container>h1 {
+	animation-name: innerjumboh1;
+	animation-duration: 4s;
+	  animation-delay: 1s;
+	  animation-iteration-count: infinite;
+	  animation-direction: alternate-reverse;
+	  animation-timing-function: ease-in;
+}
+
+#innerjumbo .container div>a {
+	color:blue;
+}

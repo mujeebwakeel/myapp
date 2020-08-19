@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var Campground = require("../models/campground");
+var Comment = require("../models/comment")
+var User = require("../models/user")
 var Book = require("../models/booking")
 var middleware = require("../middlewares");
 var moment = require("moment");
@@ -211,18 +213,18 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req,res){
                 req.flash("error", "Bookings could not be found");
                res.redirect("/campgrounds");
             } else {
-                res.render("campgrounds/bookingRecord", {bookings:foundBookings});
+                res.render("campgrounds/bookingRecord", {bookings:foundBookings, page: "bookings"});
             }
         })
     })
 
     router.get("/camp/elegushi", function(req,res) {
-        Campground.findOne({name:"Island"}, function(err, foundCampground){
+        Book.deleteMany({}, function(err, foundCampground){
             if(err){
                req.flash("error", "Campground could not be found");
                res.redirect("/campgrounds");
             }else{
-                res.send(foundCampground);     
+                res.send("All Deleted");     
             }
         });
     });
