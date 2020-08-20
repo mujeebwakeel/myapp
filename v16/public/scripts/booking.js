@@ -47,7 +47,7 @@ $( document ).ready(function() {
 							}
 					}
 					dateLength = selectedPeriod.length;
-					totalAmount = price*dateLength;
+					totalAmount = (price*dateLength).toFixed(2);
 					$("#payable-amount").val(totalAmount);
 					$("#payable-amount").attr("readonly", true);
 			}
