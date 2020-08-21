@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-var moment = require("moment");
 
 var campgroundSchema = new mongoose.Schema({
     name: String,

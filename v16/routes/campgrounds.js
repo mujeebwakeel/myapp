@@ -81,7 +81,7 @@ router.post("/", middleware.isAdmin, upload.single('image'), function(req,res){
   campground.image = result.secure_url;
   campground.imageId = result.public_id;
   // add author to campground
-  campground.author = {
+  campground.author = { 
     id: req.user._id,
     username: req.user.username
   }
@@ -218,28 +218,28 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req,res){
         })
     })
 
-    router.get("/camp/elegushi", function(req,res) {
-        Book.deleteMany({}, function(err, foundCampground){
-            if(err){
-               req.flash("error", "Campground could not be found");
-               res.redirect("/campgrounds");
-            }else{
-                res.send("All Deleted");     
-            }
-        });
-    });
+    // router.get("/camp/elegushi", function(req,res) {
+    //     Campground.findByIdAndRemove("5f3e791b156c5801a839d74a", function(err, foundCampground){
+    //         if(err){
+    //            req.flash("error", "Campground could not be found");
+    //            res.redirect("/campgrounds");
+    //         }else{
+    //             res.send("Deleted");     
+    //         }
+    //     });
+    // });
 
 
-    router.get("/allcamps/here", function(req,res) {
-        Book.find({}, function(err, bookings){
-            if(err || !bookings){
-               req.flash("error", "Campground not found");
-               res.redirect("/campgrounds");
-            }else{
-                res.send(bookings);     
-            }
-        });
-    });
+    // router.get("/allcamps/here", function(req,res) {
+    //     Campground.find({}, function(err, bookings){
+    //         if(err || !bookings){
+    //            req.flash("error", "Campground not found");
+    //            res.redirect("/campgrounds");
+    //         }else{
+    //             res.send(bookings);     
+    //         }
+    //     });
+    // });
 
 
 module.exports = router;

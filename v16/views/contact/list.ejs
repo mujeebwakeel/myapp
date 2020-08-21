@@ -2,8 +2,7 @@
 <html>
     <head>
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>YelpCamp</title>
+        <title>WhykayCamp</title>
             <script src="https://kit.fontawesome.com/c7394a92be.js" crossorigin="anonymous"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">        
             <link rel= "stylesheet" type="text/css" href="/stylesheets/app.css">
@@ -18,7 +17,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/">YelpCamp</a>
+                        <a class="navbar-brand" href="/">WhykayCamp</a>
                     </div>
                     <div class="collapse navbar-collapse" id="adex">
                             <ul class="nav navbar-nav">
@@ -41,7 +40,7 @@
                                     <input type="submit" value="Search" class="btn btn-default">
                             </form>
                             <ul class="nav navbar-nav navbar-right">
-                                 
+                                
                                 <% if(!currentUser){ %>
                                     <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
                                     <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
@@ -52,7 +51,7 @@
                                             <span id="num"><%= chat %></span></a>
                                             <% }else{ %> 
                                                 <span id="none"></span></a>
-                                            <% } %> 
+                                            <% } %>
                                         </li>                                    
                                     <% } %>
                                     <li class="<%= typeof profile !== 'undefined' && profile === 'profile' ? 'active' : '' %>"><a href="/users/<%= currentUser._id%>">My Profile</a></li>
@@ -85,65 +84,44 @@
         </div>
         <% } %>
     </div>    
-<div class="container">
 
-<div style="max-width:60rem; width:90%; margin:10px auto;">
-    <div class="row">
-        <div class="col-xs-12">
-            <p style="display:none;" id="info"><%= selectedDate%></p>
-            <p style="display:none;" id="price"><%= campground.price%></p>
-            <h1 style="text-align:center">Enter Your Details</h1>
-            <form action="/campgrounds/<%=campground._id %>/booking" method="POST">
-                
-                <div class="form-group">
-                    <label>First Name</label>
-                    <input class="form-control" id="first-name" type="text" name="firstName" placeholder="firstname" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Last Name</label>
-                    <input class="form-control" id="last-name" type="text" name="lastName" placeholder="lastname" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Email</label>
-                    <input class="form-control" id="email" type="text" name="email" placeholder="email" required>
-                </div>
 
-                <div class="form-group">
-                    <label>Number of family members</label>
-                    <input class="form-control" id="family-member" type="number" name="familyMembers" placeholder="number of family members" required>
-                </div>
-                
-                <div id="duration" class="form-group">
-                    <label>Camping Day(s)</label>
-                    <br/>
-                    <label for="from">From</label> <input type="text" id="from" name="from" required readonly/>  
-                    <label for="to">to</label> <input type="text" id="to" name="to" readonly/>
-                </div>
-
-                <div class="form-group">
-                    <label>Payable Amount</label>
-                    <input class="form-control" type="text" id="payable-amount" name="amountPaid">
-                </div>
-
-                <div id="paymentIdDiv" class="form-group">
-                    <label>Payment ID</label>
-                    <input class="form-control" type="text" id="paymentId" name="paymentId"  >
-                </div>
-
-                <p id="instruct">Kindly make payment using any of the buttons below.</p>
-                <div id="submit-button" class="form-group">
-                    <button id="button" class= "btn btn-lg btn-primary btn-block" disabled>Submit!</button>
-                </div>
-            </form>
-            <div id="payment-button">
-                <div id="paypal-button-container"></div>
-            </div>
-        </div>
-    </div>
+<div class="booking-list">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Username</th>
+                <th>Method</th>
+                <th>Chat</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% contacts.forEach(function(contact) { %>
+            <tr>
+                <td><%= contact.date %></td>
+                <td><%= contact.username %></td>
+                <td><%= contact.method %></td>
+                <td><%= contact.chat %></td>
+                <td>
+                    <% if(contact.attention) { %>
+                        cleared
+                    <% }else{ %>
+                        <form style="display:inline;" action="/contact/<%= contact._id %>/edit?_method=PUT" method="POST">
+                            <button>Clear</button>
+                        </form>
+                    <% } %>
+                    <form style="display:inline;" action="/contact/<%= contact._id %>/delete?_method=DELETE" method="POST">
+                        <button>Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
 </div>
-</div>
+
 <div  class="terms">By continuing to browse this site you agree that any data submitted by you can be saved into our database
     and we shall not be liable to any network related isuues you encounter browing this site. You also agree
     that any payment made on this site shall not be refunded. Thank you.
@@ -152,15 +130,10 @@
     <span id="terms-toggle" style="cursor: pointer;">Terms</span><span>&#169; 2020 Adeyinka</span><span>Whykay&#8482;</span><span><a href="/contact">Contact Us</a></span>
 </nav>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script
-    src="https://www.paypal.com/sdk/js?client-id=AYL7ygG9wpr9WXKVOUdywxqwpkXm6O8bB848xrl2vUFclZ46UAnS_BUhjJCftf1FYF9RM7pkExcw0GOx"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
-</script>
-<script src="/scripts/booking.js"></script>
 <script src="/scripts/terms.js"></script>
 
 </body>
-
 </html>
+
+

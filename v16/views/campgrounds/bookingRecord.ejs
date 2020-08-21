@@ -5,7 +5,7 @@
         <title>WhykayCamp</title>
             <script src="https://kit.fontawesome.com/c7394a92be.js" crossorigin="anonymous"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">        
-            <link rel= "stylesheet" href="/stylesheets/app.css">
+            <link rel= "stylesheet" type="text/css" href="/stylesheets/app.css">
     </head>
     <body>
         <nav class="navbar navbar-default navbar-fixed-top"> 
@@ -47,6 +47,12 @@
                                 <% }else{ %>
                                     <% if(currentUser.isAdmin) { %>
                                         <li class="<%= typeof page !== 'undefined' && page === 'bookings' ? 'active' : '' %>"><a href="/campgrounds/booking/records">Bookings</a></li>
+                                        <li class="<%= typeof page !== 'undefined' && page === 'contacts' ? 'active' : '' %>"><a id="chats-text" href="/contact/list"><span id="chats-format">Chats</span> <% if(chat>0) { %>
+                                            <span id="num"><%= chat %></span></a>
+                                            <% }else{ %> 
+                                                <span id="none"></span></a>
+                                            <% } %> 
+                                        </li>                                    
                                     <% } %>
                                     <li class="<%= typeof profile !== 'undefined' && profile === 'profile' ? 'active' : '' %>"><a href="/users/<%= currentUser._id%>">My Profile</a></li>
                                     <li><a>Currently signed in as <%=currentUser.username%></a></li>
@@ -116,15 +122,18 @@
     </table>
 </div>
 
-
+<div  class="terms">By continuing to browse this site you agree that any data submitted by you can be saved into our database
+    and we shall not be liable to any network related isuues you encounter browing this site. You also agree
+    that any payment made on this site shall not be refunded. Thank you.
+</div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
-        <p>Designed By Adeyinka</p>
+    <span id="terms-toggle" style="cursor: pointer;">Terms</span><span>&#169; 2020 Adeyinka</span><span>Whykay&#8482;</span><span><a href="/contact">Contact Us</a></span>
 </nav>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="/scripts/terms.js"></script>
 
 </body>
 </html>
 
 
-<%- include('../partials/footer'); -%>

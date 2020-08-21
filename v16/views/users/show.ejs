@@ -5,7 +5,7 @@
             <h1><%= user.firstName + " " + user.lastName %></h1>
             <div class="thumbnail">
                 <img class= "img-responsive" src="<%= user.avatar%>" alt="user profile image">
-                <div class="caption"><a href="mailto:<%= user.email%> target='_blank' rel='noopener noreferrer'"><%= user.email%></a></div>
+                <div class="caption"><a href="mailto:<%= user.email%>?subject=<%= user.username%>%20Campground"><%= user.email%></a></div>
             </div>
             <p>
                 <%= user.description%>
