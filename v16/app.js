@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var moment = require("moment");
 var Campground = require("./models/campground");
+var Contact = require("./models/contact");
 var flash = require("connect-flash");
 var passport = require("passport");
 var localStrategy = require("passport-local");
@@ -12,6 +13,7 @@ var session = require('express-session')
 var MemoryStore = require('memorystore')(session);
 var User = require("./models/user");
 require('dotenv').config();
+var chats = 0;
 
 
 
@@ -20,6 +22,7 @@ var commentRoutes = require("./routes/comments");
 var campgroundRoutes = require("./routes/campgrounds");
 var indexRoutes = require("./routes/index");
 var passwordReset = require("./routes/passwordreset");
+var contactRoute = require("./routes/contact");
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, 'useUnifiedTopology': true, 'useFindAndModify': false, useCreateIndex: true });
 app.use(bodyParser.urlencoded({extended: true}));
@@ -45,7 +48,20 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+setInterval(chat, 3600000);
+
+function chat() {
+    Contact.find({attention: false}, function(err, foundContacts) {
+        if(err || !foundContacts) {
+            console.log("Something");
+        } else {
+            chats = foundContacts.length;
+        }
+    })
+}
+
 app.use(function(req,res,next){
+    res.locals.chat = chats;
     res.locals.currentUser = req.user;
     res.locals.moment = moment;
     res.locals.message = req.flash("message");
@@ -56,6 +72,7 @@ app.use(function(req,res,next){
 });
 
 app.use("/", indexRoutes);
+app.use(contactRoute);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 app.use(passwordReset);
