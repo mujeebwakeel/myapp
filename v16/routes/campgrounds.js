@@ -61,8 +61,8 @@ router.get("/:id", function(req,res){
             res.render("campgrounds/show", {campground: foundCampground, allCampgrounds:allCampgrounds});     
         }
     });
-    });
   });
+});
 
     
 // CREATE CAMPGROUND
@@ -77,6 +77,7 @@ router.post("/", middleware.isAdmin, upload.single('image'), function(req,res){
            return res.redirect("back");
        }
   // add cloudinary url for the image to the campground object under image property
+
   var campground = req.body.campground;
   campground.image = result.secure_url;
   campground.imageId = result.public_id;
@@ -114,7 +115,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single('image'), 
                 req.flash("error", err.message);
                 return res.redirect("back");
               }
-                if(req.file){
+                if(req.file){ 
                    try {
                    await cloudinary.v2.uploader.destroy(campground.imageId);
                    var result = await cloudinary.v2.uploader.upload(req.file.path); 

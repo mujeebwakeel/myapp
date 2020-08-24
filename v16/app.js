@@ -48,7 +48,7 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-setInterval(chat, 3600000);
+setInterval(chat, 2000);
 
 function chat() {
     Contact.find({attention: false}, function(err, foundContacts) {
@@ -82,7 +82,7 @@ app.get("*", function(req,res){
     res.send("<h1>The entered URL does not exit on this server.</h1> <h2>Kindly check the URL characters for the correct link.</h2> <h2>Thank you.</h2>");
 });
 
-setInterval(checkDates, 2000000000);
+setInterval(checkDates, 432000000);
 
 
 function checkDates() {
@@ -94,8 +94,6 @@ function checkDates() {
             Campground.findOneAndUpdate({name:campground.name}, {booking:dates}, function(err, found) {
                 if(err || !found) {
                     console.log("Nothing updated");
-                } else {
-                    console.log(found);
                 }
             })
         });
@@ -103,6 +101,6 @@ function checkDates() {
 }
 
  
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(8000, process.env.IP, function(){
     console.log("Server has started");
 });

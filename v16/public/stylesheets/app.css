@@ -217,7 +217,7 @@ span#none {
 	bottom: 50px;
     right: 0;
     left: 0;
-	z-index: 1030;
+	z-index: 1030; 
 }
 
 .play {
