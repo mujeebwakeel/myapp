@@ -14,6 +14,10 @@ router.get("/", function(req, res){
 
 // AUTH ROUTES
 router.get("/register", function(req,res){
+    if(req.user) {
+        req.flash("message", "You are currently logged in");
+        return res.redirect("/campgrounds");
+    }
     res.render("register", {page: 'register'});
 });
 
@@ -44,6 +48,10 @@ router.post("/register", middleware.checkEmailRepetition, function(req,res){
 
 // LOGIN ROUTES
 router.get("/login", function(req,res){
+    if(req.user) {
+        req.flash("message", "You are currently logged in");
+        return res.redirect("/campgrounds");
+    }
     res.render("login", {page: 'login'});
 });
 

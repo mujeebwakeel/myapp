@@ -8,6 +8,10 @@ var crypto = require("crypto");
 
 // forgot password
 router.get('/forgot', function(req, res) {
+  if(req.user) {
+    req.flash("message", "You are currently logged in");
+    return res.redirect("/campgrounds");
+}
   res.render('password/forgot');
 });
 
@@ -70,6 +74,10 @@ router.post('/forgot', function(req, res, next) {
 
 
 router.get('/reset/:token', function(req, res) {
+  if(req.user) {
+    req.flash("message", "You are currently logged in");
+    return res.redirect("/campgrounds");
+}
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
     if (err || !user) {
       req.flash('error', 'Password reset token is invalid or has expired.');
