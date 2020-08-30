@@ -24,7 +24,7 @@ body {
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0;
+  left: 0; 
   z-index: 0;
   list-style: none;
   margin: 0;
@@ -46,22 +46,22 @@ body {
 }
 
 .slideshow li:nth-child(1) { 
-  background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1591857386/mmwngfu4c4foqbzuasra.jpg");  
+  background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1598813321/ucg7ykmro4kst6c48nla.jpg");  
 }
 .slideshow li:nth-child(2) { 
-  background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1591857784/ndbdextn7uff27ygupr9.jpg");
+  background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1598813216/y6rzbybnubkz4octxrhj.jpg");
   animation-delay: 10s; 
 }
 .slideshow li:nth-child(3) { 
-  background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1591861796/y0o8e7fjthd1bo8umocv.jpg");
+  background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1598813398/mpkkzc7he3dgkoynjvls.jpg");
   animation-delay: 20s; 
 }
 .slideshow li:nth-child(4) { 
-  background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1591857263/xrnpy4cgxgyb0ly2ye96.jpg");
+  background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1598813269/n8t1uucrm4pu7bcdcsio.jpg");
   animation-delay: 30s; 
 }
 .slideshow li:nth-child(5) { 
-  background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1591857087/npfut7njcyaxbgkbo5m7.jpg");
+  background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1598813161/yirr7t2t23yrl20yichv.jpg");
   animation-delay: 40s; 
 }
 

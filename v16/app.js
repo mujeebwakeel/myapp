@@ -101,6 +101,6 @@ function checkDates() {
 }
  
  
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(5000, process.env.IP, function(){
     console.log("Server has started");
 });

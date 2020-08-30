@@ -219,16 +219,16 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req,res){
         })
     })
 
-    // router.get("/camp/elegushi", function(req,res) {
-    //     Campground.findByIdAndRemove("5f3e791b156c5801a839d74a", function(err, foundCampground){
-    //         if(err){
-    //            req.flash("error", "Campground could not be found");
-    //            res.redirect("/campgrounds");
-    //         }else{
-    //             res.send("Deleted");     
-    //         }
-    //     });
-    // });
+    router.get("/camp/elegushi", function(req,res) {
+        Campground.find({}, function(err, foundCampground){
+            if(err){
+               req.flash("error", "Campground could not be found");
+               res.redirect("/campgrounds");
+            }else{
+                res.send(foundCampground);     
+            }
+        });
+    });
 
 
     // router.get("/allcamps/here", function(req,res) {

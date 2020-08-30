@@ -120,10 +120,10 @@ tbody>tr:nth-child(even) {
 }
 
 @keyframes animate {
-	0%   {background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1597417380/neikasinartdfqagw5pq.jpg");}
-	25%  {background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1596394731/nlpr8mcinzoqw3pad5k2.jpg");}
-	50%  {background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1591857263/xrnpy4cgxgyb0ly2ye96.jpg");}
-	100% {background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1591856522/usm2nnntkmd1rslp9id7.jpg");}
+	0%   {background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1598813161/yirr7t2t23yrl20yichv.jpg");}
+	25%  {background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1598813216/y6rzbybnubkz4octxrhj.jpg");}
+	50%  {background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1598813269/n8t1uucrm4pu7bcdcsio.jpg");}
+	100% {background-image: url("https://res.cloudinary.com/wakeelmujeeb/image/upload/v1598813321/ucg7ykmro4kst6c48nla.jpg");}
   }
 
 .container .jumbotron {
