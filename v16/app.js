@@ -48,12 +48,12 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-setInterval(chat, 2000);
+setInterval(chat, 600000);
 
 function chat() {
     Contact.find({attention: false}, function(err, foundContacts) {
         if(err || !foundContacts) {
-            console.log("Something");
+            console.log("Something went wrong");
         } else {
             chats = foundContacts.length;
         }
@@ -101,6 +101,6 @@ function checkDates() {
 }
  
  
-app.listen(5000, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Server has started");
-});
+}); 
