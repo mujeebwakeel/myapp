@@ -159,7 +159,7 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req,res){
     router.get("/:id/booking",  middleware.isLoggedIn, function(req,res){
         Campground.findById(req.params.id, function(err, foundCampground) {
             if(err || !foundCampground) {
-                req.flash("error", "Something went wrong");
+                req.flash("error", "Something went wrong"); 
                 return res.redirect("/campgrounds/"+req.params.id);
             }
             res.render("campgrounds/booking", {campground: foundCampground, selectedDate: foundCampground.booking}); 
