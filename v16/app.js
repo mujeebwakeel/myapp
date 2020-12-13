@@ -12,6 +12,7 @@ var methodOverride = require("method-override");
 var session = require('express-session')
 var MemoryStore = require('memorystore')(session);
 var User = require("./models/user");
+var PORT = process.env.PORT || 5000
 require('dotenv').config();
 var chats = 0;
 
@@ -101,6 +102,6 @@ function checkDates() {
 }
  
  
-app.listen(5000, process.env.IP, function(){
+app.listen(PORT, process.env.IP, function(){
     console.log("Server has started");
 }); 
