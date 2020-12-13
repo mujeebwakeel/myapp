@@ -7,7 +7,7 @@ var smtpTransport = require("nodemailer-smtp-transport");
 var crypto = require("crypto");
 
 // forgot password
-router.get('/forgot', function(req, res) {
+router.get('/forgot', function(req, res) { 
   if(req.user) {
     req.flash("message", "You are currently logged in");
     return res.redirect("/campgrounds");
@@ -59,13 +59,19 @@ router.post('/forgot', function(req, res, next) {
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       transporter.sendMail(mailOptions, function(err) {
-        console.log('mail sent');
-        req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+        if(!err) {
+          console.log('mail sent');
+          req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+        }
+        
         done(err, 'done');
       });
     }
   ], function(err) {
-    if (err) return next(err);
+    if (err) {
+      req.flash("error", "E-mail not sent");
+      return res.redirect('/forgot');
+    }
     res.redirect('/forgot');
   });
 });
@@ -132,16 +138,20 @@ router.post('/reset/:token', function(req, res) {
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
       };
       transporter.sendMail(mailOptions, function(err) {
-        req.flash('success', 'Success! Your password has been changed.');
+        if(!err) {
+          console.log("Mail sent");
+          req.flash('success', 'Success! Your password has been changed.');
+        }
         done(err);
       });
     }
   ], function(err) {
-    if (err){
+    if (err) {
       console.log(err);
-    }else{
-      res.redirect('/campgrounds');
+      req.flash("error", "E-mail not sent");
+      return res.redirect('/campgrounds');
     }
+      res.redirect('/campgrounds');
   });
 });
 

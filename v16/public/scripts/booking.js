@@ -70,7 +70,7 @@ $( document ).ready(function() {
 			$("#last-name").attr("readonly", true);
 			$("#email").attr("readonly", true);
 			$("#family-member").attr("readonly", true);
-			$("#duration").css("display", "none");
+			$("#duration").css("display", "none"); 
 			$("#button").attr("disabled", false);
 			$("#submit-button").css("display", "block");
 			$("#instruct").text("Kindly click the submit button to complete your booking and generate your receipt");
@@ -78,8 +78,7 @@ $( document ).ready(function() {
 			$("#paymentIdDiv").css("display", "block");
 			$("#paymentId").val(order.id);
 			$("#paymentIdDiv").attr("readonly", true);
-			alert("Transaction successful. click 'OK' to submit your booking");
-
+			$("#submit").submit();
 		},
 		onError: err => {
 			alert(err + ". Kindly retry later");

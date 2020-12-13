@@ -78,7 +78,7 @@ middleware.checkEmailRepetition = function (req, res, next) {
 middleware.paginatedResults = function (model) {
     return async (req,res,next) =>{
         const limit = 5
-        const results = {}
+        const results = {} 
         var number = await model.estimatedDocumentCount().exec();
             results.maxPageNum = Math.ceil(number/limit);
        

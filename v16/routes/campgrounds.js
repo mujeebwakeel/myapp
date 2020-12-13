@@ -68,10 +68,11 @@ router.get("/:id", function(req,res){
 // CREATE CAMPGROUND
 router.get("/new/campground", middleware.isAdmin, function(req,res){
     res.render("campgrounds/new");
-});
+}); 
 
 router.post("/", middleware.isAdmin, upload.single('image'), function(req,res){
-   cloudinary.v2.uploader.upload(req.file.path, function(err,result) {
+    console.log(req.file.path);
+   cloudinary.v2.uploader.upload(req.file.path, function(err,result) { 
        if(err){
            req.flash("err", err.message);
            return res.redirect("back");
@@ -84,7 +85,7 @@ router.post("/", middleware.isAdmin, upload.single('image'), function(req,res){
   // add author to campground
   campground.author = { 
     id: req.user._id,
-    username: req.user.username
+    username: req.user.username 
   }
   // add created to campground
   campground.created = moment().format("LLL");  
