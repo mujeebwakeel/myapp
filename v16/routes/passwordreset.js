@@ -3,7 +3,7 @@ var router  = express.Router();
 var User = require("../models/user");
 var async = require("async");
 var nodemailer = require("nodemailer");
-var smtpTransport = require("nodemailer-smtp-transport");
+var Mailgen = require("mailgen")
 var crypto = require("crypto");
 
 // forgot password
